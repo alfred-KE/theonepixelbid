@@ -1,1 +1,91 @@
-[...content of manifesto.html as above...]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manifesto — THE ONE PIXEL BID</title>
+  <meta name="description" content="The official manifesto of The One Pixel Bid — an internet-scale conceptual artwork." />
+  <style>
+    :root{--bg:#0b0b0b;--fg:#eaeaea;--muted:#9a9a9a;--accent:#ffd400}
+    *{box-sizing:border-box} html,body{margin:0;height:100%}
+    body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Georgia,'Times New Roman',serif;display:flex;flex-direction:column;min-height:100vh}
+    header, footer{max-width:900px;margin:0 auto;padding:20px;width:100%}
+    header{display:flex;justify-content:space-between;align-items:center}
+    a{color:var(--fg);text-decoration:none}
+    main{flex:1;padding:20px}
+    .container{max-width:900px;margin:0 auto}
+    h1{font-size:clamp(28px,5vw,44px);margin:8px 0 20px}
+    .lang{display:flex;gap:8px;flex-wrap:wrap}
+    .pill{border:1px solid #222;border-radius:999px;padding:8px 12px;cursor:pointer;background:#151515}
+    .pill[aria-selected="true"]{background:var(--accent);color:#000;border-color:#333}
+    .block{line-height:1.7;font-size:18px;color:#dadada}
+    .hr{height:1px;background:#1b1b1b;margin:22px 0}
+    .meta{color:var(--muted);font-size:14px;margin-top:12px}
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" aria-label="Home">← Home</a>
+    <div>THE ONE PIXEL BID</div>
+    <div></div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1>Manifesto</h1>
+
+      <div class="lang" role="tablist" aria-label="Language">
+        <button class="pill" role="tab" aria-selected="true" aria-controls="en" id="tab-en">English</button>
+        <button class="pill" role="tab" aria-selected="false" aria-controls="fr" id="tab-fr">Français</button>
+      </div>
+
+      <div id="en" role="tabpanel" aria-labelledby="tab-en" class="block">
+        <p>The Internet is infinite. Billions of pages, trillions of pixels — an ocean of color and code.</p>
+        <p>But somewhere in this infinity, there must be a beginning. A single, finite point from which everything could start — and end.</p>
+        <p>That point is here. A single pixel. The smallest possible unit of digital existence. The atom of our online universe.</p>
+        <p>For thirty years, pixels have built our world — our memories, our identities, our economies. They have shaped our desires, sold our dreams, captured our faces. And yet, no one has ever owned <em>one</em>. Not symbolically. Not truly. <strong>Until now.</strong></p>
+        <div class="hr"></div>
+        <p><strong>The Auction.</strong> This is the first and last pixel ever to be auctioned. Visible to all, owned by one. A paradox of digital rarity: public and private, infinite and unique.</p>
+        <p>The winning bidder will not just own a pixel. They will own a symbol — of value, attention, and the absurd beauty of the Internet itself.</p>
+        <div class="hr"></div>
+        <p><strong>Specifications.</strong><br/>Size: 1×1 px · Scale: 200× (visible) · Title: <em>The Origin</em> · Location: theonepixelbid.com</p>
+        <p>After the auction closes, the pixel will be sealed. Its color will never change. A certificate of ownership will be issued as a single NFT on Ethereum.</p>
+        <p class="meta">Created by Novelvision — Amsterdam · 2025</p>
+      </div>
+
+      <div id="fr" role="tabpanel" aria-labelledby="tab-fr" class="block" hidden>
+        <p>L’Internet est infini. Des milliards de pages, des trillions de pixels — un océan de couleurs et de code.</p>
+        <p>Mais quelque part dans cet infini, il doit exister un commencement. Un point unique et fini d’où tout peut naître — et s’achever.</p>
+        <p>Ce point est ici. Un pixel unique. L’unité la plus petite de l’existence numérique. L’atome de notre univers en ligne.</p>
+        <p>Depuis trente ans, les pixels bâtissent notre monde — nos souvenirs, nos identités, nos économies. Ils sculptent nos désirs, vendent nos rêves, capturent nos visages. Et pourtant, personne n’a jamais possédé <em>un</em> pixel. Pas symboliquement. Pas vraiment. <strong>Jusqu’à présent.</strong></p>
+        <div class="hr"></div>
+        <p><strong>L’Enchère.</strong> Voici le premier et dernier pixel jamais mis aux enchères. Visible par tous, possédé par un seul. Un paradoxe de rareté numérique : public et privé, infini et unique.</p>
+        <p>Le gagnant ne possédera pas seulement un pixel. Il possédera un symbole — de valeur, d’attention, et de l’absurde beauté de l’Internet lui-même.</p>
+        <div class="hr"></div>
+        <p><strong>Spécifications.</strong><br/>Taille : 1×1 px · Échelle : 200× (visibilité) · Titre : <em>The Origin</em> · Lieu : theonepixelbid.com</p>
+        <p>Après la clôture, le pixel sera scellé. Sa couleur ne changera plus. Un certificat de propriété sera émis sous la forme d’un NFT unique sur Ethereum.</p>
+        <p class="meta">Créé par Novelvision — Amsterdam · 2025</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container" style="text-align:center;color:var(--muted);font-size:12px">
+      © <span id="year"></span> theonepixelbid.com · <a href="/">Home</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const enBtn = document.getElementById('tab-en'), frBtn = document.getElementById('tab-fr');
+    const en = document.getElementById('en'), fr = document.getElementById('fr');
+    function select(lang){
+      const isEn = lang==='en';
+      en.hidden = !isEn; fr.hidden = isEn;
+      enBtn.setAttribute('aria-selected', isEn); frBtn.setAttribute('aria-selected', !isEn);
+    }
+    enBtn.addEventListener('click', ()=>select('en'));
+    frBtn.addEventListener('click', ()=>select('fr'));
+  </script>
+</body>
+</html>
