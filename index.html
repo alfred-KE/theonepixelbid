@@ -26,8 +26,8 @@
     .card{max-width:880px;width:100%;border:1px solid #222;background:#0f0f0f;border-radius:16px;padding:32px;box-shadow:0 10px 40px rgba(0,0,0,.4)}
     h1{margin:0;font-size:clamp(28px,6vw,56px);letter-spacing:-.02em;text-align:center}
     p.lead{color:var(--muted);text-align:center;max-width:680px;margin:8px auto 0;font-size:clamp(16px,2.6vw,20px)}
-    /* Pixel zone : carré garanti + halo séparé */
-    .pixel-zone{width:var(--pxSize);height:var(--pxSize);position:relative;margin:36px auto 10px}
+    /* Pixel zone : carré garanti + halo séparé pour éviter l'effet disque plein */
+    .pixel-zone{width:var(--pxSize);height:var(--pxSize);position:relative;margin:36px auto 12px}
     .pixel-zone::before{content:"";position:absolute;inset:0;border-radius:50%;filter:blur(22px);background:rgba(255,212,0,.35);pointer-events:none}
     .pixel{position:absolute;left:50%;top:50%;width:1px;height:1px;background:var(--accent);transform:translate(-50%,-50%) scale(var(--pxScale));transform-origin:center;image-rendering:pixelated;border-radius:0 !important;clip-path:inset(0) !important;box-shadow:none !important}
     .pixel-caption{color:var(--muted);font-size:12px;text-align:center}
@@ -41,6 +41,7 @@
     .links{display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap}
     .link-btn{padding:12px 16px;border:1px solid #222;border-radius:12px;text-decoration:none;color:var(--fg);background:#151515}
     footer{color:var(--muted);font-size:12px;text-align:center}
+    .note{color:var(--muted);text-align:center;font-size:14px;margin-top:8px}
   </style>
 </head>
 <body>
@@ -61,10 +62,23 @@
       <div class="pixel-caption">This is it. 1×1 px. Scaled ×200 for visibility.</div>
 
       <div class="stats">
-        <div class="stat"><div class="label">Auction Opens In</div><div class="value" id="countdown">—d —h —m —s</div></div>
-        <div class="stat"><div class="label">Current High Bid</div><div class="value" id="highBid">—</div></div>
-        <div class="stat"><div class="label">Watchers</div><div class="value" id="watchers">—</div></div>
+        <div class="stat">
+          <div class="label">Auction Opens In</div>
+          <div class="value" id="countdown">—d —h —m —s</div>
+        </div>
+        <div class="stat">
+          <div class="label">Current High Bid</div>
+          <div class="value" id="highBid">—</div>
+        </div>
+        <div class="stat">
+          <div class="label">Watchers</div>
+          <div class="value" id="watchers">—</div>
+        </div>
       </div>
+
+      <p class="note">
+        Auction opens on <strong>November 11, 2025 at 11:11 CET</strong> and closes on <strong>November 13, 2025 at 11:11 CET</strong>.
+      </p>
 
       <form class="cta" id="waitlist" action="https://formspree.io/f/your-form-id" method="POST">
         <input class="input" type="email" name="email" placeholder="Enter your email to get notified" required />
@@ -78,27 +92,35 @@
     </div>
   </main>
 
-  <footer>© <span id="year"></span> theonepixelbid.com · Created by Novelvision</footer>
+  <footer>© <span id="year"></span> theonepixelbid.com</footer>
 
   <script>
+    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ⏱️ Countdown (Europe/Amsterdam) — à adapter
-    const AUCTION_START = "2025-11-11T11:11:11+01:00";
+    // Countdown — launch at 11/11/2025 11:11 CET (UTC+01:00)
+    // Note: Using explicit offset avoids DST ambiguity.
+    const AUCTION_START = "2025-11-11T11:11:00+01:00";
     const countdownEl = document.getElementById('countdown');
-    <p style="text-align:center;color:#9a9a9a;font-size:14px;margin-top:8px;">
-Auction opens on <strong>November 11, 2025 at 11:11 CET</strong> and closes November 13, 2025 at 11:11 CET.
-</p>
-    function tick(){
-      const end = new Date(AUCTION_START).getTime(), now = Date.now();
-      const diff = Math.max(0, end - now), s = Math.floor(diff/1000);
-      const d = Math.floor(s/86400), h = Math.floor((s%86400)/3600), m = Math.floor((s%3600)/60), ss = s%60;
-      countdownEl.textContent = `${d}d ${h}h ${m}m ${ss}s`;
-      if (!diff){ countdownEl.textContent = 'Auction is live'; clearInterval(t); }
-    }
-    const t = setInterval(tick, 1000); tick();
 
-    // Placeholders (tu peux brancher Supabase + Realtime plus tard)
+    function tick(){
+      const end = new Date(AUCTION_START).getTime();
+      const now = Date.now();
+      const diff = Math.max(0, end - now);
+      const totalSec = Math.floor(diff/1000);
+      const d = Math.floor(totalSec / 86400);
+      const h = Math.floor((totalSec % 86400) / 3600);
+      const m = Math.floor((totalSec % 3600) / 60);
+      const s = totalSec % 60;
+      countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
+      if (diff === 0){
+        countdownEl.textContent = "Auction is live";
+        clearInterval(timer);
+      }
+    }
+    const timer = setInterval(tick, 1000); tick();
+
+    // Placeholders (brancher plus tard si besoin)
     document.getElementById('highBid').textContent = '—';
     document.getElementById('watchers').textContent = '—';
 
