@@ -24,7 +24,7 @@
     p.lead{color:var(--muted);text-align:center;max-width:680px;margin:8px auto 0;font-size:clamp(16px,2.6vw,20px)}
     .pixel-zone{width:var(--pxSize);height:var(--pxSize);position:relative;margin:36px auto 12px}
     .pixel-zone::before{content:"";position:absolute;inset:0;border-radius:50%;filter:blur(22px);background:rgba(255,212,0,.35);pointer-events:none}
-    .pixel{position:absolute;left:50%;top:50%;width:1px;height:1px;background:var(--accent);transform:translate(-50%,-50%) scale(var(--pxScale));transform-origin:center;image-rendering:pixelated;border-radius:0 !important;clip-path:inset(0) !important;box-shadow:none !important}
+    .pixel{position:absolute;left:50%;top:50%;width:1px;height:1px;background:var(--accent);transform:translate(-50%,-50%) scale(var(--pxScale));transform-origin:center;image-rendering:pixelated}
     .pixel-caption{color:var(--muted);font-size:12px;text-align:center}
     .stat{border:1px solid #202020;background:#0b0b0b;border-radius:12px;padding:16px;text-align:center;margin:22px 0}
     .label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
@@ -56,8 +56,8 @@
       <div class="pixel-zone"><div class="pixel" aria-label="the one pixel"></div></div>
       <div class="pixel-caption">This is it. 1×1 px. Scaled ×200 for visibility.</div>
 
-      <!-- Bloc compteur (affiché avant l’ouverture) -->
-      <div class="stat" id="preStart">
+      <!-- Compte à rebours + email avant ouverture -->
+      <div class="stat" id="pre">
         <div class="label">Auction Opens In</div>
         <div class="value" id="countdown">—d —h —m —s</div>
         <p class="note">
@@ -67,17 +67,6 @@
           <input class="input" type="email" name="email" placeholder="Enter your email to get notified" required />
           <button class="button" type="submit">Notify me</button>
         </form>
-      </div>
-
-      <!-- Bloc fin d’enchère (affiché après la clôture) -->
-      <div class="stat hidden" id="postEnd">
-        <div class="label">Auction Status</div>
-        <div class="value">Auction ended</div>
-        <p class="note">The pixel is sealed. View results on the auction page.</p>
-        <div class="links">
-          <a class="link-btn" href="/bid">View the Auction</a>
-          <a class="link-btn" href="/manifesto">Read the Manifesto</a>
-        </div>
       </div>
 
       <div class="links">
@@ -92,36 +81,39 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Timestamps en UTC (fiables, non sensibles au navigateur)
+    // Utilise UTC pour être indépendant du fuseau horaire du visiteur
     const AUCTION_START_UTC = Date.parse('2025-11-11T10:11:00Z'); // 11:11 CET
     const AUCTION_END_UTC   = Date.parse('2025-11-13T10:11:00Z'); // 11:11 CET
 
-    const preStart = document.getElementById('preStart');
-    const postEnd  = document.getElementById('postEnd');
-    const notify   = document.getElementById('notify');
     const countdownEl = document.getElementById('countdown');
+    const preEl = document.getElementById('pre');
+    const notifyEl = document.getElementById('notify');
 
-    // Si la page est consultée après la clôture → état “ended”
-    function setEnded() {
-      preStart.classList.add('hidden');
-      postEnd.classList.remove('hidden');
+    function goLiveUI(){
+      // Masquer email, annoncer live, et rediriger vers /bid (fiable client-side)
+      if (notifyEl) notifyEl.classList.add('hidden');
+      if (countdownEl) countdownEl.textContent = 'Auction is live';
+      // Redirection immédiate vers la page d’enchère
+      window.location.href = '/bid';
     }
 
     function tick(){
       const now = Date.now();
 
-      // Après la clôture → état “ended” + stop
-      if (now >= AUCTION_END_UTC) { setEnded(); clearInterval(timer); return; }
-
-      // Si on est déjà dans la fenêtre d’enchère, la middleware te redirige vers /bid côté serveur.
-      // Sur le client, si quelqu’un bypass l’edge, on masque le notify et on invite à entrer :
+      // Pendant l’enchère : redirection instantanée
       if (now >= AUCTION_START_UTC && now < AUCTION_END_UTC) {
-        if (notify) notify.classList.add('hidden');
-        countdownEl.textContent = 'Auction is live';
-        return; // on laisse la redirection serveur faire le job
+        goLiveUI();
+        return;
       }
 
-      // Avant ouverture → compte à rebours
+      // Après la clôture : on peut masquer le notify si tu préfères
+      if (now >= AUCTION_END_UTC) {
+        if (notifyEl) notifyEl.classList.add('hidden');
+        if (countdownEl) countdownEl.textContent = 'Auction ended';
+        return;
+      }
+
+      // Avant ouverture : compte à rebours
       const diff = Math.max(0, AUCTION_START_UTC - now);
       const s = Math.floor(diff/1000);
       const d = Math.floor(s/86400);
@@ -131,16 +123,18 @@
       countdownEl.textContent = `${d}d ${h}h ${m}m ${ss}s`;
     }
 
-    const timer = setInterval(tick, 1000); tick();
+    // Démarre immédiatement et met à jour chaque seconde
+    tick();
+    setInterval(tick, 1000);
 
-    // Formspree
-    if (notify) {
-      notify.addEventListener('submit', async (e)=>{
+    // Formspree AJAX (optionnel)
+    if (notifyEl) {
+      notifyEl.addEventListener('submit', async (e)=>{
         e.preventDefault();
-        const fd = new FormData(notify);
-        const res = await fetch(notify.action, { method:'POST', body:fd, headers:{'Accept':'application/json'}});
+        const fd = new FormData(notifyEl);
+        const res = await fetch(notifyEl.action, { method:'POST', body:fd, headers:{'Accept':'application/json'}});
         alert(res.ok ? 'You are on the list. See you at launch.' : 'Submission failed. Please try again.');
-        if(res.ok) notify.reset();
+        if(res.ok) notifyEl.reset();
       });
     }
   </script>
