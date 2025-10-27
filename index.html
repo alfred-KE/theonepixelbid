@@ -11,13 +11,9 @@
   <meta property="og:url" content="https://theonepixelbid.com" />
   <meta name="twitter:card" content="summary_large_image" />
   <style>
-    :root{
-      --bg:#0b0b0b; --fg:#eaeaea; --muted:#9a9a9a; --accent:#ffd400;
-      --pxScale:200; --pxSize: calc(1px * var(--pxScale));
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;height:100%}
-    body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial;display:flex;flex-direction:column;min-height:100vh}
+    :root{ --bg:#0b0b0b; --fg:#eaeaea; --muted:#9a9a9a; --accent:#ffd400; --pxScale:200; --pxSize: calc(1px * var(--pxScale)); }
+    *{box-sizing:border-box} html,body{margin:0;height:100%}
+    body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto;display:flex;flex-direction:column;min-height:100vh}
     header, footer{max-width:1200px;margin:0 auto;padding:20px;width:100%}
     header{display:flex;justify-content:space-between;align-items:center}
     .brand{font-weight:800;letter-spacing:.04em}
@@ -26,30 +22,29 @@
     .card{max-width:880px;width:100%;border:1px solid #222;background:#0f0f0f;border-radius:16px;padding:32px;box-shadow:0 10px 40px rgba(0,0,0,.4)}
     h1{margin:0;font-size:clamp(28px,6vw,56px);letter-spacing:-.02em;text-align:center}
     p.lead{color:var(--muted);text-align:center;max-width:680px;margin:8px auto 0;font-size:clamp(16px,2.6vw,20px)}
-    /* Pixel zone : carré garanti + halo séparé pour éviter l'effet disque plein */
     .pixel-zone{width:var(--pxSize);height:var(--pxSize);position:relative;margin:36px auto 12px}
     .pixel-zone::before{content:"";position:absolute;inset:0;border-radius:50%;filter:blur(22px);background:rgba(255,212,0,.35);pointer-events:none}
     .pixel{position:absolute;left:50%;top:50%;width:1px;height:1px;background:var(--accent);transform:translate(-50%,-50%) scale(var(--pxScale));transform-origin:center;image-rendering:pixelated;border-radius:0 !important;clip-path:inset(0) !important;box-shadow:none !important}
     .pixel-caption{color:var(--muted);font-size:12px;text-align:center}
-    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:22px 0}
-    .stat{border:1px solid #202020;background:#0b0b0b;border-radius:12px;padding:16px}
+    .stat{border:1px solid #202020;background:#0b0b0b;border-radius:12px;padding:16px;text-align:center;margin:22px 0}
     .label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
     .value{font-size:22px;font-weight:800;margin-top:6px}
-    .cta{display:grid;gap:10px;grid-template-columns:1fr auto;align-items:center;max-width:560px;margin:0 auto}
-    .input{width:100%;padding:14px 16px;border-radius:12px;border:1px solid #222;background:#111;color:var(--fg)}
-    .button{padding:14px 22px;border-radius:12px;border:1px solid #222;background:var(--accent);color:#000;font-weight:800;cursor:pointer}
-    .links{display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap}
-    .link-btn{padding:12px 16px;border:1px solid #222;border-radius:12px;text-decoration:none;color:var(--fg);background:#151515}
-    footer{color:var(--muted);font-size:12px;text-align:center}
     .note{color:var(--muted);text-align:center;font-size:14px;margin-top:8px}
+    .links{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+    .link-btn{padding:12px 16px;border:1px solid #222;border-radius:12px;text-decoration:none;color:var(--fg);background:#151515}
+    .notify{display:grid;gap:10px;grid-template-columns:1fr auto;align-items:center;max-width:560px;margin:18px auto 0}
+    .input{width:100%;padding:14px 16px;border-radius:12px;border:1px solid #222;background:#111;color:var(--fg)}
+    .button{padding:14px 22px;border-radius:12px;border:1px solid #222;background:#151515;color:var(--fg);cursor:pointer}
+    .hidden{display:none !important}
+    footer{color:var(--muted);font-size:12px;text-align:center}
   </style>
 </head>
 <body>
   <header>
     <div class="brand">THE ONE PIXEL BID</div>
     <nav>
-      <a href="/manifesto.html">Manifesto</a>
-      <a href="/bid.html">Join the Auction</a>
+      <a href="/manifesto">Manifesto</a>
+      <a href="/bid">Join the Auction</a>
     </nav>
   </header>
 
@@ -61,33 +56,33 @@
       <div class="pixel-zone"><div class="pixel" aria-label="the one pixel"></div></div>
       <div class="pixel-caption">This is it. 1×1 px. Scaled ×200 for visibility.</div>
 
-      <div class="stats">
-        <div class="stat">
-          <div class="label">Auction Opens In</div>
-          <div class="value" id="countdown">—d —h —m —s</div>
-        </div>
-        <div class="stat">
-          <div class="label">Current High Bid</div>
-          <div class="value" id="highBid">—</div>
-        </div>
-        <div class="stat">
-          <div class="label">Watchers</div>
-          <div class="value" id="watchers">—</div>
+      <!-- Bloc compteur (affiché avant l’ouverture) -->
+      <div class="stat" id="preStart">
+        <div class="label">Auction Opens In</div>
+        <div class="value" id="countdown">—d —h —m —s</div>
+        <p class="note">
+          Auction opens on <strong>November 11, 2025 at 11:11 CET</strong> and closes on <strong>November 13, 2025 at 11:11 CET</strong>.
+        </p>
+        <form class="notify" id="notify" action="https://formspree.io/f/your-form-id" method="POST" aria-label="Get notified">
+          <input class="input" type="email" name="email" placeholder="Enter your email to get notified" required />
+          <button class="button" type="submit">Notify me</button>
+        </form>
+      </div>
+
+      <!-- Bloc fin d’enchère (affiché après la clôture) -->
+      <div class="stat hidden" id="postEnd">
+        <div class="label">Auction Status</div>
+        <div class="value">Auction ended</div>
+        <p class="note">The pixel is sealed. View results on the auction page.</p>
+        <div class="links">
+          <a class="link-btn" href="/bid">View the Auction</a>
+          <a class="link-btn" href="/manifesto">Read the Manifesto</a>
         </div>
       </div>
 
-      <p class="note">
-        Auction opens on <strong>November 11, 2025 at 11:11 CET</strong> and closes on <strong>November 13, 2025 at 11:11 CET</strong>.
-      </p>
-
-      <form class="cta" id="waitlist" action="https://formspree.io/f/your-form-id" method="POST">
-        <input class="input" type="email" name="email" placeholder="Enter your email to get notified" required />
-        <button class="button" type="submit">Notify me</button>
-      </form>
-
       <div class="links">
-        <a class="link-btn" href="/manifesto.html">Read the Manifesto</a>
-        <a class="link-btn" href="/bid.html">Join the Auction</a>
+        <a class="link-btn" href="/manifesto">Read the Manifesto</a>
+        <a class="link-btn" href="/bid">Join the Auction</a>
       </div>
     </div>
   </main>
@@ -95,44 +90,59 @@
   <footer>© <span id="year"></span> theonepixelbid.com</footer>
 
   <script>
-    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Countdown — launch at 11/11/2025 11:11 CET (UTC+01:00)
-    // Note: Using explicit offset avoids DST ambiguity.
-    const AUCTION_START = "2025-11-11T11:11:00+01:00";
+    // Timestamps en UTC (fiables, non sensibles au navigateur)
+    const AUCTION_START_UTC = Date.parse('2025-11-11T10:11:00Z'); // 11:11 CET
+    const AUCTION_END_UTC   = Date.parse('2025-11-13T10:11:00Z'); // 11:11 CET
+
+    const preStart = document.getElementById('preStart');
+    const postEnd  = document.getElementById('postEnd');
+    const notify   = document.getElementById('notify');
     const countdownEl = document.getElementById('countdown');
 
-    function tick(){
-      const end = new Date(AUCTION_START).getTime();
-      const now = Date.now();
-      const diff = Math.max(0, end - now);
-      const totalSec = Math.floor(diff/1000);
-      const d = Math.floor(totalSec / 86400);
-      const h = Math.floor((totalSec % 86400) / 3600);
-      const m = Math.floor((totalSec % 3600) / 60);
-      const s = totalSec % 60;
-      countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
-      if (diff === 0){
-        countdownEl.textContent = "Auction is live";
-        clearInterval(timer);
-      }
+    // Si la page est consultée après la clôture → état “ended”
+    function setEnded() {
+      preStart.classList.add('hidden');
+      postEnd.classList.remove('hidden');
     }
+
+    function tick(){
+      const now = Date.now();
+
+      // Après la clôture → état “ended” + stop
+      if (now >= AUCTION_END_UTC) { setEnded(); clearInterval(timer); return; }
+
+      // Si on est déjà dans la fenêtre d’enchère, la middleware te redirige vers /bid côté serveur.
+      // Sur le client, si quelqu’un bypass l’edge, on masque le notify et on invite à entrer :
+      if (now >= AUCTION_START_UTC && now < AUCTION_END_UTC) {
+        if (notify) notify.classList.add('hidden');
+        countdownEl.textContent = 'Auction is live';
+        return; // on laisse la redirection serveur faire le job
+      }
+
+      // Avant ouverture → compte à rebours
+      const diff = Math.max(0, AUCTION_START_UTC - now);
+      const s = Math.floor(diff/1000);
+      const d = Math.floor(s/86400);
+      const h = Math.floor((s%86400)/3600);
+      const m = Math.floor((s%3600)/60);
+      const ss = s%60;
+      countdownEl.textContent = `${d}d ${h}h ${m}m ${ss}s`;
+    }
+
     const timer = setInterval(tick, 1000); tick();
 
-    // Placeholders (brancher plus tard si besoin)
-    document.getElementById('highBid').textContent = '—';
-    document.getElementById('watchers').textContent = '—';
-
-    // Formspree (AJAX)
-    const form = document.getElementById('waitlist');
-    form.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      const fd = new FormData(form);
-      const res = await fetch(form.action, { method:'POST', body:fd, headers:{'Accept':'application/json'}});
-      alert(res.ok ? 'You are on the list. See you at launch.' : 'Submission failed. Please try again.');
-      if(res.ok) form.reset();
-    });
+    // Formspree
+    if (notify) {
+      notify.addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        const fd = new FormData(notify);
+        const res = await fetch(notify.action, { method:'POST', body:fd, headers:{'Accept':'application/json'}});
+        alert(res.ok ? 'You are on the list. See you at launch.' : 'Submission failed. Please try again.');
+        if(res.ok) notify.reset();
+      });
+    }
   </script>
 </body>
 </html>
