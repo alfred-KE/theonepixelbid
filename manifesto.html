@@ -6,6 +6,26 @@
   <title>Manifesto — THE ONE PIXEL BID</title>
   <meta name="description" content="The official manifesto of The One Pixel Bid — an internet-scale conceptual artwork." />
   <style>
+    .language-selector button {
+  background: transparent;
+  border: 1px solid #333;
+  color: #eaeaea; /* texte clair */
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.language-selector button:hover {
+  background: #ffd400;
+  color: #000; /* contraste sur hover */
+}
+
+.language-selector button.active {
+  background: #ffd400;
+  color: #000;
+  font-weight: 600;
+}
     :root{--bg:#0b0b0b;--fg:#eaeaea;--muted:#9a9a9a;--accent:#ffd400}
     *{box-sizing:border-box}
     html,body{margin:0;height:100%}
