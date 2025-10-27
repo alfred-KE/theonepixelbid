@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    { "source": "/manifesto", "destination": "/manifesto.html" },
+    { "source": "/bid", "destination": "/bid.html" },
+    { "source": "/auction", "destination": "/bid.html" }
+  ],
+  "redirects": [
+    { "source": "/manifesto.html", "destination": "/manifesto", "permanent": true },
+    { "source": "/bid.html", "destination": "/bid", "permanent": true },
+    { "source": "/auction.html", "destination": "/auction", "permanent": true }
+  ]
+}
