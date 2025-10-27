@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Join the Auction — THE ONE PIXEL BID</title>
-  <meta name="description" content="Join the auction for the Internet’s rarest pixel." />
+  <meta name="description" content="Join the auction for the Internet’s rarest pixel — The Origin." />
   <style>
     :root{--bg:#0b0b0b;--fg:#eaeaea;--muted:#9a9a9a;--accent:#ffd400}
     *{box-sizing:border-box} html,body{margin:0;height:100%}
@@ -18,10 +18,12 @@
     p{color:var(--muted)}
     .block{display:grid;gap:12px}
     .btn{padding:14px 18px;border:1px solid #222;border-radius:12px;background:var(--accent);color:#000;font-weight:800;text-align:center}
-    .note{font-size:12px;color:var(--muted)}
-    .cta{display:grid;gap:10px;grid-template-columns:1fr auto;align-items:center;max-width:520px;margin-top:16px}
+    .btn[disabled]{opacity:.5;pointer-events:none}
+    .hr{height:1px;background:#1b1b1b;margin:22px 0}
+    .cta{display:grid;gap:10px;grid-template-columns:1fr auto;align-items:center;max-width:520px}
     .input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #222;background:#111;color:var(--fg)}
     .button{padding:12px 16px;border-radius:12px;border:1px solid #222;background:#151515;color:var(--fg);cursor:pointer}
+    .note{font-size:12px;color:var(--muted)}
   </style>
 </head>
 <body>
@@ -37,12 +39,12 @@
       <p>The auction is hosted on Ethereum. A single NFT — <em>The Origin</em> — will be minted for the winning bidder.</p>
 
       <div class="block">
-        <!-- ⚠️ Remplace MANIFOLD_URL par l’URL de ta page Manifold dès qu’elle est créée -->
+        https://manifold.xyz/@t1pb/id/4141521136
         <a class="btn" id="go" href="#" target="_blank" rel="noopener">Go to the NFT Auction (Manifold)</a>
         <div class="note">If the button is disabled, the auction isn’t open yet.</div>
       </div>
 
-      <div class="hr" style="height:1px;background:#1b1b1b;margin:22px 0"></div>
+      <div class="hr"></div>
 
       <p>Get notified when the auction opens:</p>
       <form class="cta" id="waitlist" action="https://formspree.io/f/your-form-id" method="POST">
@@ -59,11 +61,12 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // 👉 Renseigne ici l’URL Manifold dès que tu as créé le NFT
-    const MANIFOLD_URL = ""; // ex: "https://app.manifold.xyz/c/theorigin"
+    // 👉 Renseigne ici l’URL Manifold (ex: "https://app.manifold.xyz/c/theorigin")
+    const MANIFOLD_URL = "";
+
     const btn = document.getElementById('go');
     if (MANIFOLD_URL) { btn.href = MANIFOLD_URL; }
-    else { btn.style.opacity = .5; btn.style.pointerEvents = 'none'; btn.textContent = 'Auction not open yet'; }
+    else { btn.setAttribute('disabled',''); btn.textContent = 'Auction not open yet'; }
 
     // Formspree (AJAX)
     const form = document.getElementById('waitlist');
