@@ -6,24 +6,90 @@
   <title>Join the Auction — THE ONE PIXEL BID</title>
   <meta name="description" content="Join the auction for the Internet’s rarest pixel — The Origin." />
   <style>
-    :root{--bg:#0b0b0b;--fg:#eaeaea;--muted:#9a9a9a;--accent:#ffd400}
-    *{box-sizing:border-box} html,body{margin:0;height:100%}
-    body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto;display:flex;flex-direction:column;min-height:100vh}
-    header, footer{max-width:960px;margin:0 auto;padding:20px;width:100%}
-    header{display:flex;justify-content:space-between;align-items:center}
+    :root {
+      --bg:#0b0b0b;
+      --fg:#eaeaea;
+      --muted:#9a9a9a;
+      --accent:#ffd400;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%}
+    body{
+      background:var(--bg);
+      color:var(--fg);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto;
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+    }
+    header,footer{
+      max-width:960px;
+      margin:0 auto;
+      padding:20px;
+      width:100%;
+    }
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
     a{color:var(--fg);text-decoration:none}
-    main{flex:1;display:grid;place-items:center;padding:40px 20px}
-    .card{max-width:900px;width:100%;border:1px solid #222;background:#0f0f0f;border-radius:16px;padding:24px;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+    main{
+      flex:1;
+      display:grid;
+      place-items:center;
+      padding:40px 20px;
+    }
+    .card{
+      max-width:900px;
+      width:100%;
+      border:1px solid #222;
+      background:#0f0f0f;
+      border-radius:16px;
+      padding:24px;
+      box-shadow:0 10px 40px rgba(0,0,0,.4);
+    }
     h1{margin:0 0 8px}
-    p{color:var(--muted)}
-    .block{display:grid;gap:12px}
-    .btn{padding:14px 18px;border:1px solid #222;border-radius:12px;background:var(--accent);color:#000;font-weight:800;text-align:center}
+    p{color:var(--muted);line-height:1.6}
+    .block{display:grid;gap:12px;margin:24px 0}
+    .btn{
+      padding:14px 18px;
+      border:1px solid #222;
+      border-radius:12px;
+      background:var(--accent);
+      color:#000;
+      font-weight:800;
+      text-align:center;
+      transition:all .2s ease;
+    }
+    .btn:hover{filter:brightness(1.1)}
     .btn[disabled]{opacity:.5;pointer-events:none}
     .hr{height:1px;background:#1b1b1b;margin:22px 0}
-    .cta{display:grid;gap:10px;grid-template-columns:1fr auto;align-items:center;max-width:520px}
-    .input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #222;background:#111;color:var(--fg)}
-    .button{padding:12px 16px;border-radius:12px;border:1px solid #222;background:#151515;color:var(--fg);cursor:pointer}
+    .cta{
+      display:grid;
+      gap:10px;
+      grid-template-columns:1fr auto;
+      align-items:center;
+      max-width:520px;
+    }
+    .input{
+      width:100%;
+      padding:12px 14px;
+      border-radius:12px;
+      border:1px solid #222;
+      background:#111;
+      color:var(--fg);
+    }
+    .button{
+      padding:12px 16px;
+      border-radius:12px;
+      border:1px solid #222;
+      background:#151515;
+      color:var(--fg);
+      cursor:pointer;
+    }
     .note{font-size:12px;color:var(--muted)}
+    footer{text-align:center;color:var(--muted);font-size:12px}
   </style>
 </head>
 <body>
@@ -39,14 +105,15 @@
       <p>The auction is hosted on Ethereum. A single NFT — <em>The Origin</em> — will be minted for the winning bidder.</p>
 
       <div class="block">
-        https://manifold.xyz/@t1pb/id/4141521136
-        <a class="btn" id="go" href="#" target="_blank" rel="noopener">Go to the NFT Auction (Manifold)</a>
-        <div class="note">If the button is disabled, the auction isn’t open yet.</div>
+        <a class="btn" id="go" href="https://manifold.xyz/@t1pb/id/4141521136" target="_blank" rel="noopener">
+          Go to the NFT Auction (Manifold)
+        </a>
+        <div class="note">The auction runs from <strong>November 11, 2025 at 11:11 CET</strong> to <strong>November 13, 2025 at 11:11 CET</strong>.</div>
       </div>
 
       <div class="hr"></div>
 
-      <p>Get notified when the auction opens:</p>
+      <p>Get notified about future drops:</p>
       <form class="cta" id="waitlist" action="https://formspree.io/f/your-form-id" method="POST">
         <input class="input" type="email" name="email" placeholder="Email address" required />
         <button class="button" type="submit">Notify me</button>
@@ -54,27 +121,26 @@
     </div>
   </main>
 
-  <footer style="text-align:center;color:var(--muted);font-size:12px">
+  <footer>
     © <span id="year"></span> theonepixelbid.com · <a href="/manifesto.html">Manifesto</a>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // 👉 Renseigne ici l’URL Manifold (ex: "https://app.manifold.xyz/c/theorigin")
-    const MANIFOLD_URL = "";
-
-    const btn = document.getElementById('go');
-    if (MANIFOLD_URL) { btn.href = MANIFOLD_URL; }
-    else { btn.setAttribute('disabled',''); btn.textContent = 'Auction not open yet'; }
-
     // Formspree (AJAX)
     const form = document.getElementById('waitlist');
     form.addEventListener('submit', async (e)=>{
       e.preventDefault();
       const fd = new FormData(form);
-      const res = await fetch(form.action, { method:'POST', body:fd, headers:{'Accept':'application/json'}});
-      alert(res.ok ? 'You are on the list.' : 'Submission failed. Please try again.');
+      const res = await fetch(form.action, { 
+        method:'POST', 
+        body:fd, 
+        headers:{'Accept':'application/json'} 
+      });
+      alert(res.ok 
+        ? 'You are on the list. Thank you!' 
+        : 'Submission failed. Please try again.');
       if(res.ok) form.reset();
     });
   </script>
