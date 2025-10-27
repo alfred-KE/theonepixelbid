@@ -7,8 +7,9 @@
   <meta name="description" content="The official manifesto of The One Pixel Bid — an internet-scale conceptual artwork." />
   <style>
     :root{--bg:#0b0b0b;--fg:#eaeaea;--muted:#9a9a9a;--accent:#ffd400}
-    *{box-sizing:border-box} html,body{margin:0;height:100%}
-    body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Georgia,'Times New Roman',serif;display:flex;flex-direction:column;min-height:100vh}
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%}
+    body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC','Noto Naskh Arabic',Tahoma;display:flex;flex-direction:column;min-height:100vh}
     header, footer{max-width:900px;margin:0 auto;padding:20px;width:100%}
     header{display:flex;justify-content:space-between;align-items:center}
     a{color:var(--fg);text-decoration:none}
@@ -37,33 +38,80 @@
       <div class="lang" role="tablist" aria-label="Language">
         <button class="pill" role="tab" aria-selected="true" aria-controls="en" id="tab-en">English</button>
         <button class="pill" role="tab" aria-selected="false" aria-controls="fr" id="tab-fr">Français</button>
+        <button class="pill" role="tab" aria-selected="false" aria-controls="es" id="tab-es">Español</button>
+        <button class="pill" role="tab" aria-selected="false" aria-controls="zh" id="tab-zh">中文</button>
+        <button class="pill" role="tab" aria-selected="false" aria-controls="ar" id="tab-ar">العربية</button>
       </div>
 
-      <div id="en" role="tabpanel" aria-labelledby="tab-en" class="block">
-        <p>The Internet is infinite. Billions of pages, trillions of pixels — an ocean of color and code.</p>
+      <!-- ENGLISH -->
+      <section id="en" role="tabpanel" aria-labelledby="tab-en" class="block">
+        <p>The Internet is infinite — billions of pages, trillions of pixels; an ocean of color and code.</p>
         <p>But somewhere in this infinity, there must be a beginning. A single, finite point from which everything could start — and end.</p>
         <p>That point is here. A single pixel. The smallest possible unit of digital existence. The atom of our online universe.</p>
-        <p>For thirty years, pixels have built our world — our memories, our identities, our economies. They have shaped our desires, sold our dreams, captured our faces. And yet, no one has ever owned <em>one</em>. Not symbolically. Not truly. <strong>Until now.</strong></p>
+        <p>For thirty years, pixels have built our world — our memories, our identities, our economies. They have shaped desires, sold dreams, captured faces. And yet, no one has ever owned <em>one</em>. Not symbolically. Not truly. <strong>Until now.</strong></p>
         <div class="hr"></div>
-        <p><strong>The Auction.</strong> This is the first and last pixel ever to be auctioned. Visible to all, owned by one. A paradox of digital rarity: public and private, infinite and unique.</p>
-        <p>The winning bidder will not just own a pixel. They will own a symbol — of value, attention, and the absurd beauty of the Internet itself.</p>
+        <p><strong>The Auction.</strong> This is the first and last pixel ever to be auctioned. Visible to all, owned by one. A paradox of digital rarity — public and private, infinite and unique.</p>
+        <p>The winning bidder will not just own a pixel, but a symbol — of value, attention, and the absurd beauty of the Internet itself.</p>
         <div class="hr"></div>
-        <p><strong>Specifications.</strong><br/>Size: 1×1 px · Scale: 200× (visible) · Title: <em>The Origin</em> · Location: theonepixelbid.com</p>
-        <p>After the auction closes, the pixel will be sealed. Its color will never change. A certificate of ownership will be issued as a single NFT on Ethereum.</p>
-      </div>
+        <p><strong>Specifications.</strong><br/>Size: 1×1 px · Scale: 200× (visibility) · Title: <em>The Origin</em> · Location: theonepixelbid.com</p>
+        <p>After the auction closes, the pixel will be sealed. Its color will not change. A single NFT on Ethereum will certify ownership.</p>
+      </section>
 
-      <div id="fr" role="tabpanel" aria-labelledby="tab-fr" class="block" hidden>
-        <p>L’Internet est infini. Des milliards de pages, des trillions de pixels — un océan de couleurs et de code.</p>
+      <!-- FRENCH -->
+      <section id="fr" role="tabpanel" aria-labelledby="tab-fr" class="block" hidden>
+        <p>L’Internet est infini — des milliards de pages, des trillions de pixels ; un océan de couleurs et de code.</p>
         <p>Mais quelque part dans cet infini, il doit exister un commencement. Un point unique et fini d’où tout peut naître — et s’achever.</p>
         <p>Ce point est ici. Un pixel unique. L’unité la plus petite de l’existence numérique. L’atome de notre univers en ligne.</p>
         <p>Depuis trente ans, les pixels bâtissent notre monde — nos souvenirs, nos identités, nos économies. Ils sculptent nos désirs, vendent nos rêves, capturent nos visages. Et pourtant, personne n’a jamais possédé <em>un</em> pixel. Pas symboliquement. Pas vraiment. <strong>Jusqu’à présent.</strong></p>
         <div class="hr"></div>
-        <p><strong>L’Enchère.</strong> Voici le premier et dernier pixel jamais mis aux enchères. Visible par tous, possédé par un seul. Un paradoxe de rareté numérique : public et privé, infini et unique.</p>
-        <p>Le gagnant ne possédera pas seulement un pixel. Il possédera un symbole — de valeur, d’attention, et de l’absurde beauté de l’Internet lui-même.</p>
+        <p><strong>L’Enchère.</strong> Voici le premier et dernier pixel jamais mis aux enchères. Visible par tous, possédé par un seul. Un paradoxe de rareté numérique — public et privé, infini et unique.</p>
+        <p>Le gagnant ne possédera pas seulement un pixel, mais un symbole — de la valeur, de l’attention, et de l’absurde beauté de l’Internet.</p>
         <div class="hr"></div>
         <p><strong>Spécifications.</strong><br/>Taille : 1×1 px · Échelle : 200× (visibilité) · Titre : <em>The Origin</em> · Lieu : theonepixelbid.com</p>
-        <p>Après la clôture, le pixel sera scellé. Sa couleur ne changera plus. Un certificat de propriété sera émis sous la forme d’un NFT unique sur Ethereum.</p>
-      </div>
+        <p>Après la clôture, le pixel sera scellé. Sa couleur ne changera pas. Un NFT unique sur Ethereum certifiera la propriété.</p>
+      </section>
+
+      <!-- SPANISH -->
+      <section id="es" role="tabpanel" aria-labelledby="tab-es" class="block" hidden>
+        <p>Internet es infinito: miles de millones de páginas, billones de píxeles; un océano de color y código.</p>
+        <p>Pero en algún lugar de ese infinito debe existir un principio. Un punto único y finito desde el que todo puede comenzar — y terminar.</p>
+        <p>Ese punto está aquí. Un solo píxel. La unidad más pequeña de la existencia digital. El átomo de nuestro universo en línea.</p>
+        <p>Durante treinta años, los píxeles han construido nuestro mundo — nuestros recuerdos, identidades y economías. Han dado forma a deseos, vendido sueños, capturado rostros. Y, sin embargo, nadie ha poseído jamás <em>uno</em>. Ni simbólicamente. Ni de verdad. <strong>Hasta ahora.</strong></p>
+        <div class="hr"></div>
+        <p><strong>La Subasta.</strong> Este es el primer y último píxel jamás subastado. Visible para todos, propiedad de uno. Una paradoja de rareza digital: público y privado, infinito y único.</p>
+        <p>Quien gane no poseerá solo un píxel, sino un símbolo — del valor, de la atención y de la belleza absurda de Internet.</p>
+        <div class="hr"></div>
+        <p><strong>Especificaciones.</strong><br/>Tamaño: 1×1 px · Escala: 200× (visibilidad) · Título: <em>The Origin</em> · Ubicación: theonepixelbid.com</p>
+        <p>Tras el cierre de la subasta, el píxel quedará sellado. Su color no cambiará. Un único NFT en Ethereum certificará la propiedad.</p>
+      </section>
+
+      <!-- CHINESE (Simplified) -->
+      <section id="zh" role="tabpanel" aria-labelledby="tab-zh" class="block" hidden>
+        <p>互联网是无限的——数十亿网页、数万亿像素，宛如由色彩与代码汇成的海洋。</p>
+        <p>但在这片无限之中，必然存在一个起点。一个单一而有限的点，万物由此开始，也终将归于此处。</p>
+        <p>这个点就在这里：一个像素。数字存在中最小的单位，我们在线宇宙的“原子”。</p>
+        <p>三十年来，像素构筑了我们的世界——记忆、身份与经济。它们塑造欲望、售卖梦想、记录面孔。然而从未有人真正拥有过<em>一个</em>像素：既非象征意义上，也非真正意义上。<strong>直到此刻。</strong></p>
+        <div class="hr"></div>
+        <p><strong>拍卖。</strong> 这是历史上第一次、也是最后一次被拍卖的像素。人人可见，却只由一人拥有。数字稀缺的悖论——公共且私有，无限且唯一。</p>
+        <p>竞得者拥有的不仅是一个像素，更是一个符号——关于价值、注意力，以及互联网自身荒诞之美的象征。</p>
+        <div class="hr"></div>
+        <p><strong>规格。</strong><br/>尺寸：1×1 像素 · 显示比例：200× · 标题：<em>The Origin</em> · 位置：theonepixelbid.com</p>
+        <p>拍卖结束后，该像素将被“封存”，其颜色不再改变。以太坊上的唯一 NFT 将用于证明其所有权。</p>
+      </section>
+
+      <!-- ARABIC (RTL) -->
+      <section id="ar" role="tabpanel" aria-labelledby="tab-ar" class="block" hidden dir="rtl">
+        <p>الإنترنت لانهائي — مليارات الصفحات وتريليونات البكسلات؛ محيط من اللون والشفرة.</p>
+        <p>لكن في مكان ما داخل هذا اللانهائي لا بد من بداية: نقطة واحدة محدودة يمكن أن يبدأ منها كل شيء — وينتهي عندها.</p>
+        <p>هذه النقطة هنا. بكسل واحد. أصغر وحدة ممكنة للوجود الرقمي. الذرّة التي يقوم عليها كونُنا على الشبكة.</p>
+        <p>على مدى ثلاثين عامًا بنت البكسلات عالمنا — ذاكرتنا، هويتنا، اقتصادنا. شكّلت الرغبات وباعت الأحلام وخلّدت الوجوه. ومع ذلك، لم يمتلك أحد يومًا <em>بكسلًا واحدًا</em> — لا رمزيًا ولا حقيقة. <strong>حتى الآن.</strong></p>
+        <div class="hr"></div>
+        <p><strong>المزاد.</strong> هذا هو أول وآخر بكسل يُعرَض للمزاد. مرئي للجميع ومملوك لواحد. مفارقة الندرة الرقمية — عام وخاص، لا نهائي وفريد.</p>
+        <p>الفائز لن يمتلك بكسلًا فحسب، بل رمزًا — للقيمة والانتباه وجمال الإنترنت العبثي ذاته.</p>
+        <div class="hr"></div>
+        <p><strong>المواصفات.</strong><br/>الحجم: 1×1 بكسل · مقياس العرض: ‎200×‎ · العنوان: <em>The Origin</em> · الموقع: theonepixelbid.com</p>
+        <p>بعد إغلاق المزاد سيُغلَق البكسل ويُثبَّت لونه. وسيُصدَّق على الملكية عبر NFT واحد على شبكة الإيثريوم.</p>
+      </section>
     </div>
   </main>
 
@@ -75,15 +123,29 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    const enBtn = document.getElementById('tab-en'), frBtn = document.getElementById('tab-fr');
-    const en = document.getElementById('en'), fr = document.getElementById('fr');
-    function select(lang){
-      const isEn = lang==='en';
-      en.hidden = !isEn; fr.hidden = isEn;
-      enBtn.setAttribute('aria-selected', isEn); frBtn.setAttribute('aria-selected', !isEn);
+
+    const tabs = [
+      {btn:'tab-en', panel:'en', dir:'ltr'},
+      {btn:'tab-fr', panel:'fr', dir:'ltr'},
+      {btn:'tab-es', panel:'es', dir:'ltr'},
+      {btn:'tab-zh', panel:'zh', dir:'ltr'},
+      {btn:'tab-ar', panel:'ar', dir:'rtl'}
+    ];
+
+    function select(id){
+      tabs.forEach(({btn,panel,dir})=>{
+        const b=document.getElementById(btn);
+        const p=document.getElementById(panel);
+        const active = (panel===id);
+        b.setAttribute('aria-selected', active);
+        p.hidden = !active;
+        if (active) { p.setAttribute('dir', dir); }
+      });
     }
-    enBtn.addEventListener('click', ()=>select('en'));
-    frBtn.addEventListener('click', ()=>select('fr'));
+
+    tabs.forEach(({btn,panel})=>{
+      document.getElementById(btn).addEventListener('click', ()=>select(panel));
+    });
   </script>
 </body>
 </html>
